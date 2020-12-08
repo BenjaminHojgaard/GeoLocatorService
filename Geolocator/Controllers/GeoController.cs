@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Geolocator.Models;
+using Geolocator.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Geolocator.Controllers
 {
@@ -12,22 +14,21 @@ namespace Geolocator.Controllers
     [ApiController]
     public class GeoController : ControllerBase
     {
-        // GET: api/Geo/
-        [HttpGet(Name = "Get")]
-        public ICollection<Restaurant> Get([FromHeader]ICollection<string> addresses)
-        {
-            var restaurants = new List<Restaurant>();
-            // HTTP GET
-            // loop over addresses
-            // GET request to fetch lat and long of address
 
-            return restaurants;
+        public GeoController(IConfiguration configuration, IAddressService addressService)
+        {
+            Configuration = configuration;
+            _addressService = addressService;
         }
 
-        // POST: api/Geo
+        public IConfiguration Configuration { get; }
+        public IAddressService _addressService { get; }
+
+        // POST: api/Geo/
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ICollection<Coordinates>> Get([FromBody]ICollection<string> addresses)
         {
+            return await _addressService.getHotelCoordinates(addresses);
         }
 
         // PUT: api/Geo/5
