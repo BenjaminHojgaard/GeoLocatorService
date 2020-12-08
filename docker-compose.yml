@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  geolocator:
+    image: ${DOCKER_REGISTRY-}geolocator
+    build:
+      context: .
+      dockerfile: Geolocator/Dockerfile

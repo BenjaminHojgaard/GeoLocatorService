@@ -1,0 +1,16 @@
+services:
+  geolocator:
+    build:
+      context: C:\Users\Highyard\source\repos\Geolocator
+      dockerfile: Geolocator/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: geolocator
+    ports:
+    - target: 80
+    - target: 443
+    volumes:
+    - C:\Users\Highyard\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Highyard\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+version: '3.4'
